@@ -3,6 +3,7 @@ build-backend = "maturin"
 requires = ["maturin>=1.5,<2.0"]
 
 [project]
+authors = [{name = "Asher Jingkong Chen"}]
 classifiers = [
   "Framework :: PyTorch",
   "Programming Language :: Rust",
@@ -10,9 +11,13 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+description = "A playground for Python, Rust, and PyTorch"
 dynamic = ["version"]
+license = {file = "LICENSE"}
 name = "python-rust-torch-playground"
+readme = "README.md"
 requires-python = ">=3.10"
+version = "0.0.0"
 
 [tool.maturin]
 features = ["pyo3/extension-module"]
@@ -20,10 +25,7 @@ module-name = "python_rust_torch_playground.python_rust_torch_playground"
 python-source = "python"
 
 [tool.poetry]
-authors = ["Asher Jingkong Chen"]
-description = "A playground for Python, Rust, and PyTorch"
 name = "python-rust-torch-playground"
-version = "0.0.0"
 package-mode = false
 
 [tool.poetry.dependencies]
