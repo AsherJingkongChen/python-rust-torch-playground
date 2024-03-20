@@ -15,7 +15,16 @@ def prepublish():
     from subprocess import run
 
     run(["poetry", "lock"], check=True)
-    run(["poetry", "export", "--output", "requirements.txt"], check=True)
+    run(
+        [
+            "poetry",
+            "export",
+            "--without-hashes",
+            "--output",
+            "requirements.txt",
+        ],
+        check=True,
+    )
 
 
 if __name__ == "__main__":
