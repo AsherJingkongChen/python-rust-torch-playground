@@ -16,7 +16,7 @@ def build():
     from util_env import env
 
     env()
-    run(["python3", "-m", "maturin", "build"], check=True)
+    run(["python3", "-m", "maturin", "build", "--strip", "--release"], check=True)
 
 
 if __name__ == "__main__":
