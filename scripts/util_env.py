@@ -46,7 +46,9 @@ class Env:
 
         # Initialize a virtual environment
         env = EnvBuilder(with_pip=True)
-        paths = env.ensure_directories(str(Path(path or Env.DEFAULT_PATH()).absolute()))
+        paths = env.ensure_directories(
+            str(Path(path or Env.DEFAULT_PATH()).absolute())
+        )
         bin_path = str(paths.bin_path)
         env_path = str(paths.env_dir)
         exe_path = str(paths.env_exe)
@@ -66,7 +68,9 @@ class Env:
         # Update environment variables
         # - [how-venv-works](https://docs.python.org/3/library/venv.html#how-venvs-work)
         path_var = bin_path + os.pathsep + os.environ.get("PATH", "")
-        os.environ["PATH"] = os.pathsep.join(filter(bool, path_var.split(os.pathsep)))
+        os.environ["PATH"] = os.pathsep.join(
+            filter(bool, path_var.split(os.pathsep))
+        )
         os.environ["VIRTUAL_ENV"] = env_path
 
         # Update site package paths

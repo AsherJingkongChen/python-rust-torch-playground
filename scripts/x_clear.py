@@ -27,7 +27,7 @@ def clear():
     tasks = chain(map(Path.unlink, cwd.glob("python/**/*.so")), tasks)
     tasks = chain(map(rmtree, cwd.glob("**/__pycache__")), tasks)
     tasks = chain(map(rmtree, cwd.glob("target")), tasks)
-    tasks = chain(map(rmtree, cwd.glob('.venv')), tasks)
+    tasks = chain(map(rmtree, cwd.glob(".venv")), tasks)
     list(tasks)
 
 
