@@ -25,7 +25,7 @@ def build():
 
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
     run(
-        [python, "-m", "twine", "check", "--strict", "target/wheels/*"],
+        [python, "-m", "twine", "check", "--strict", "target/wheels/*.*"],
         check=True,
     )
 
