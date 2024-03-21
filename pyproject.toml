@@ -5,7 +5,6 @@ requires = ["maturin>=1.5,<2.0"]
 [project]
 authors = [{name = "Asher Jingkong Chen"}]
 classifiers = [
-  "Framework :: PyTorch",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Rust",
   "Programming Language :: Python :: 3.10",
