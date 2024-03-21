@@ -21,15 +21,24 @@ def clear():
     from itertools import chain
     from pathlib import Path
     from shutil import rmtree
+    from typing import Iterable
+
+    def remove_paths(*paths: Iterable[Path]) -> None:
+        for path in chain(*paths):
+            if not path.exists():
+                continue
+            if path.is_dir():
+                rmtree(path)
+            else:
+                path.unlink()
 
     cwd = Path.cwd()
-    tasks = chain(())
-    tasks = chain(map(Path.unlink, cwd.glob("python/**/*.so")), tasks)
-    tasks = chain(map(rmtree, cwd.glob("**/__pycache__")), tasks)
-    tasks = chain(map(rmtree, cwd.glob("target")), tasks)
-    tasks = chain(map(rmtree, cwd.glob(".venv")), tasks)
-
-    list(tasks)
+    remove_paths(
+        cwd.glob("python/**/*.so"),
+        cwd.glob("**/__pycache__"),
+        cwd.glob("target/"),
+        cwd.glob(".venv/"),
+    )
 
 
 if __name__ == "__main__":
