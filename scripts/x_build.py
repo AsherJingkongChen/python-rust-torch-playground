@@ -22,6 +22,7 @@ def build():
     from util_env import Env
 
     python = Env().data.executable
+
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
 
 

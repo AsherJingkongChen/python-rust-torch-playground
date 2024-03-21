@@ -20,10 +20,12 @@ python3 scripts/x_ci.py
 def ci():
     from x_build import build
     from x_clear import clear
+    from x_format import format
     from x_prepare import prepare
 
     clear()
     prepare()
+    format()
     build()
 
 

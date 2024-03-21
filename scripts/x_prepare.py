@@ -22,10 +22,8 @@ def prepare():
     from util_env import Env
 
     pip = Env().data.installer
-    run(
-        [pip, "install", "-r", "requirements.txt"],
-        check=True,
-    )
+
+    run([pip, "install", "-r", "requirements.txt"], check=True)
 
 
 if __name__ == "__main__":
