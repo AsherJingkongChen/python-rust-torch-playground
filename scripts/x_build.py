@@ -24,7 +24,10 @@ def build():
     python = Env().data.executable
 
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
-    run([python, "-m", "twine", "check", "--strict", "target/wheels/*"], check=True)
+    run(
+        [python, "-m", "twine", "check", "--strict", "target/wheels/*"],
+        check=True,
+    )
 
 
 if __name__ == "__main__":

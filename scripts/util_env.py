@@ -136,4 +136,9 @@ class EnvData:
     ```python
     assert Env().data.path.name == "bin"
     ```
+    
+    2. On NT systems
+    ```python
+    assert Env().data.path.name == "Scripts"
+    ```
     """
