@@ -1,22 +1,31 @@
 #! /usr/bin/env python3
 
 """
-# Preparation script
+Prepare the project
 
 ## Usage
 
+1.
 ```shell
 ./scripts/prepare.py
+```
+
+2.
+```shell
+python3 scripts/prepare.py
 ```
 """
 
 
 def prepare():
     from subprocess import run
-    from util_env import env
+    from util_env import Env
 
-    env()
-    run(["poetry", "install"], check=True)
+    pip = Env().data.installer
+    run(
+        [pip, "install", "-r", "requirements.txt"],
+        check=True,
+    )
 
 
 if __name__ == "__main__":

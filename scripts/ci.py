@@ -1,31 +1,29 @@
 #! /usr/bin/env python3
 
 """
-Development
+Continuous Integration
 
 ## Usage
 
 1.
 ```shell
-./scripts/dev.py
+./scripts/build.py
 ```
 
 2.
 ```shell
-python3 scripts/dev.py
+python3 scripts/build.py
 ```
 """
 
 
-def dev():
+def build():
     from subprocess import run
     from util_env import Env
 
     python = Env().data.executable
-
-    run([python, "-m", "maturin", "develop", "--skip-install"], check=True)
-    run([python], check=True)
+    run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
 
 
 if __name__ == "__main__":
-    dev()
+    build()
