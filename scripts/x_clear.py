@@ -7,12 +7,12 @@ Clear artifacts
 
 1.
 ```shell
-./scripts/clear.py
+./scripts/x_clear.py
 ```
 
 2.
 ```shell
-python3 scripts/clear.py
+python3 scripts/x_clear.py
 ```
 """
 

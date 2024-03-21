@@ -7,12 +7,12 @@ Development
 
 1.
 ```shell
-./scripts/dev.py
+./scripts/x_dev.py
 ```
 
 2.
 ```shell
-python3 scripts/dev.py
+python3 scripts/x_dev.py
 ```
 """
 

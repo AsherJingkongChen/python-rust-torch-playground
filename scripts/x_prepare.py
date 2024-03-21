@@ -7,12 +7,12 @@ Prepare the project
 
 1.
 ```shell
-./scripts/prepare.py
+./scripts/x_prepare.py
 ```
 
 2.
 ```shell
-python3 scripts/prepare.py
+python3 scripts/x_prepare.py
 ```
 """
 

@@ -1,18 +1,18 @@
 #! /usr/bin/env python3
 
 """
-Continuous Integration
+Build the project
 
 ## Usage
 
 1.
 ```shell
-./scripts/build.py
+./scripts/x_build.py
 ```
 
 2.
 ```shell
-python3 scripts/build.py
+python3 scripts/x_build.py
 ```
 """
 
