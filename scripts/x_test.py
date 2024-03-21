@@ -20,7 +20,7 @@ python3 scripts/x_test.py
 def test():
     from pathlib import Path
     from subprocess import run
-    from util_env import Env
+    from u_env import Env
 
     env = Env().data
     pip = env.installer

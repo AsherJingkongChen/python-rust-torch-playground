@@ -4,7 +4,7 @@ Construct an isolated environment
 ## Usage
 
 ```python
-from util_env import Env
+from u_env import Env
 ```
 """
 

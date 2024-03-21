@@ -19,7 +19,7 @@ python3 scripts/x_prepare.py
 
 def prepare():
     from subprocess import run
-    from util_env import Env
+    from u_env import Env
 
     pip = Env().data.installer
 

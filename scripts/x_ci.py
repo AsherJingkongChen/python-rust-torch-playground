@@ -30,5 +30,6 @@ def ci():
     run([python, "scripts/x_build.py"], check=True)
     run([python, "scripts/x_test.py"], check=True)
 
+
 if __name__ == "__main__":
     ci()

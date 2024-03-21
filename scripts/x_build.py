@@ -19,7 +19,7 @@ python3 scripts/x_build.py
 
 def build():
     from subprocess import run
-    from util_env import Env
+    from u_env import Env
 
     python = Env().data.executable
 
