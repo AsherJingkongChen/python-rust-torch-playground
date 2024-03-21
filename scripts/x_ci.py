@@ -14,19 +14,20 @@ Continuous Integration
 ```shell
 python3 scripts/x_ci.py
 ```
+
+## Description
+This script eases the process of continuous integration.
 """
 
 
 def ci():
-    from x_build import build
-    from x_clear import clear
-    from x_format import format
-    from x_prepare import prepare
+    from subprocess import run
+    from sys import executable as python
 
-    clear()
-    prepare()
-    format()
-    build()
+    run([python, "scripts/x_clear.py"], check=True)
+    run([python, "scripts/x_prepare.py"], check=True)
+    run([python, "scripts/x_format.py"], check=True)
+    run([python, "scripts/x_build.py"], check=True)
 
 
 if __name__ == "__main__":
