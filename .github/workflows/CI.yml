@@ -18,8 +18,8 @@ jobs:
     strategy:
       matrix:
         platform:
-          - runner: macos-13
-            python: '3.11'
+          - runner: macos-12
+            python: '3.10'
           # - runner: macos-14
           #   python: '3.11'
     steps:
