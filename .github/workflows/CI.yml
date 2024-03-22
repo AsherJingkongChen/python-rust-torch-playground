@@ -13,21 +13,23 @@ permissions:
   contents: read
 
 jobs:
-  ci-nix:
+  ci-posix:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         include:
           # - runner: macos-14
           #   python: '3.11'
-          - runner: macos-latest
-            python: '3.12'
+          - runner: macos-10.15
+            python: '3.10'
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
