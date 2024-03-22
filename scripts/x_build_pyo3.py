@@ -30,7 +30,16 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
 
     list(map(Path.unlink, get_build_paths()))
     run(
-        [python, "-m", "maturin", "build", "--strip", "--release", "--out", "dist"],
+        [
+            python,
+            "-m",
+            "maturin",
+            "build",
+            "--strip",
+            "--release",
+            "--out",
+            "dist",
+        ],
         check=True,
     )
     run(

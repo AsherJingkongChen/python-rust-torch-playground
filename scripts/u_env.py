@@ -54,9 +54,6 @@ class Env:
         from site import addsitepackages
         import sys
         from venv import EnvBuilder
-        from colorama import just_fix_windows_console, Fore, Style
-
-        just_fix_windows_console()
 
         # Convert parameters
         env_dir = Env.resolve_dir(env_dir)
@@ -107,9 +104,7 @@ class Env:
 
         # Show post-init message
         print(
-            Fore.CYAN
-            + f'A Python environment has initialized at "{self._data.directory}"'
-            + Style.RESET_ALL,
+            f'A Python environment has initialized at "{self._data.directory}"',
             file=sys.stderr,
         )
 
