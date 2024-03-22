@@ -17,30 +17,39 @@ python3 scripts/x_test.py
 """
 
 from os import PathLike
+from pathlib import Path
 
 
 def test(env_dir: PathLike[str] | str | None = None) -> None:
-    from itertools import chain
-    from pathlib import Path
     from subprocess import run
     from u_env import Env
+    from x_build_pyo3 import get_build_paths
 
     env = Env(env_dir)
-    venv = env.data.directory
     pip = env.data.installer
+    venv = env.data.directory
     python = env.data.executable
-    build_dir = Path("target/wheels")
-    build_paths = list(chain(build_dir.glob("*.tar.gz"), build_dir.glob("*.whl")))
-    test_paths = list(
-        filter(lambda p: venv not in p.parents, Path.cwd().glob("**/tests/**/*.py"))
-    )
 
-    run([pip, "install"] + build_paths, check=True)
+    run([pip, "install"] + get_build_paths(), check=True)
     run(
-        [python, "-m", "pytest", "--capture", "no", "--import-mode", "append"]
-        + test_paths,
+        [
+            python,
+            "-m",
+            "pytest",
+            "--capture",
+            "no",
+            "--ignore",
+            "site-packages",
+            "--import-mode",
+            "append",
+        ]
+        + get_test_paths(),
         check=True,
     )
+
+
+def get_test_paths() -> list[Path]:
+    return list(Path.cwd().glob("**/__tests__/**/*.py"))
 
 
 if __name__ == "__main__":

@@ -2,8 +2,6 @@ import python_rust_torch_playground as plg
 from torch import tensor
 import sys
 
-print(sys.path)
-
 
 def test_module_doc_presents():
     assert type(plg.__doc__) is str

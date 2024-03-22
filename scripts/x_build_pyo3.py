@@ -17,22 +17,27 @@ python3 scripts/x_build.py
 """
 
 from os import PathLike
+from pathlib import Path
 
 
 def build(env_dir: PathLike[str] | str | None = None) -> None:
-    from itertools import chain
     from pathlib import Path
     from subprocess import run
     from u_env import Env
 
     env = Env(env_dir)
     python = env.data.executable
-    build_dir = Path("target/wheels")
 
+    list(map(Path.unlink, get_build_paths()))
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
+    run(
+        [python, "-m", "twine", "check", "--strict"] + get_build_paths(),
+        check=True,
+    )
 
-    build_paths = list(chain(build_dir.glob("*.tar.gz"), build_dir.glob("*.whl")))
-    run([python, "-m", "twine", "check", "--strict"] + build_paths, check=True)
+
+def get_build_paths() -> list[Path]:
+    return list(Path("target/wheels").glob("*.whl"))
 
 
 if __name__ == "__main__":

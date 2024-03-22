@@ -23,7 +23,7 @@ from os import PathLike
 
 
 def ci(env_dir: PathLike[str] | str | None = None) -> None:
-    from x_build import build
+    from x_build_pyo3 import build
     from x_clear import clear
     from x_format import format
     from x_prepare import prepare
