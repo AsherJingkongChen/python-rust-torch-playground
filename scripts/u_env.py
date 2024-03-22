@@ -43,7 +43,7 @@ class Env:
 
         ## Parameters
         - `env_dir` (`PathLike[str] | str | None` = `None`):
-            - The path to the environment directory
+            - Path to the environment directory
 
         ## Note
         The created environment will be cached for reuse.
