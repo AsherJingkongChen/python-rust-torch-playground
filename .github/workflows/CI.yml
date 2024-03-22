@@ -20,13 +20,10 @@ jobs:
         include:
           # - runner: macos-13 # PyTorch compilation fails on macOS x86_64
           #   python: '3.10'
-          #   target: x86_64-apple-darwin
           # - runner: macos-14
           #   python: '3.10'
-          #   target: aarch64-apple-darwin
           - runner: ubuntu-20.04
             python: '3.10'
-            target: x86_64-unknown-linux-gnu
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
       - uses: actions/checkout@v4
@@ -38,8 +35,6 @@ jobs:
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
-        env:
-          CARGO_BUILD_TARGET: ${{ matrix.target }}
 
       # - uses: actions/upload-artifact@v4
       #   with:

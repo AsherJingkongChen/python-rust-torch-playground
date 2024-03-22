@@ -23,7 +23,7 @@ license = {file = "LICENSE"}
 name = "python-rust-torch-playground"
 readme = "README.md"
 requires-python = ">=3.10"
-version = "0.0.1"
+version = "0.1.0"
 
 [project.urls]
 Homepage = "https://github.com/AsherJingkongChen/python-rust-torch-playground/blob/main/README.md"
