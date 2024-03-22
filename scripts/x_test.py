@@ -29,14 +29,7 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
     python = env.data.executable
 
     run(
-        [
-            python,
-            "-m",
-            "pip",
-            "install",
-            "--force-reinstall",
-            "--no-deps",
-        ]
+        [python, "-m", "pip", "install", "--force-reinstall", "--no-deps"]
         + get_build_paths(),
         check=True,
     )
@@ -58,7 +51,7 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
 
 
 def get_test_paths() -> list[Path]:
-    return list(Path.cwd().glob("**/__tests__/**/*.py"))
+    return list(Path().glob("**/__tests__/**/*.py"))
 
 
 if __name__ == "__main__":

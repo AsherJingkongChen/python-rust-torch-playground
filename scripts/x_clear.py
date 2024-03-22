@@ -38,12 +38,12 @@ def clear(env_dir: PathLike[str] | str | None = None) -> None:
     cwd = Path.cwd()
     env_dir = Env.resolve_dir(env_dir).relative_to(cwd)
     remove_paths(
+        cwd.glob("{}".format(env_dir)),
+        cwd.glob("**/__pycache__"),
+        cwd.glob(".pytest_cache/"),
         cwd.glob("dist/"),
         cwd.glob("target/"),
-        cwd.glob(".pytest_cache/"),
         cwd.glob("python/**/*.so"),
-        cwd.glob("**/__pycache__"),
-        cwd.glob("{}".format(env_dir)),
     )
 
 
