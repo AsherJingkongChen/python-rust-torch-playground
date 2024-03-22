@@ -20,26 +20,25 @@ from os import PathLike
 
 
 def test(env_dir: PathLike[str] | str | None = None) -> None:
+    from itertools import chain
     from pathlib import Path
     from subprocess import run
     from u_env import Env
 
     env = Env(env_dir)
+    venv = env.data.directory
     pip = env.data.installer
     python = env.data.executable
+    build_dir = Path("target/wheels")
+    build_paths = list(chain(build_dir.glob("*.tar.gz"), build_dir.glob("*.whl")))
+    test_paths = list(
+        filter(lambda p: venv not in p.parents, Path.cwd().glob("**/tests/**/*.py"))
+    )
 
-    run([pip, "install"] + list(Path("target/wheels").glob("*.*")), check=True)
+    run([pip, "install"] + build_paths, check=True)
     run(
-        [
-            python,
-            "-m",
-            "pytest",
-            "--capture",
-            "no",
-            "--import-mode",
-            "append",
-        ]
-        + list(Path("python/tests").glob("*.py")),
+        [python, "-m", "pytest", "--capture", "no", "--import-mode", "append"]
+        + test_paths,
         check=True,
     )
 

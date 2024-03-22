@@ -20,17 +20,19 @@ from os import PathLike
 
 
 def build(env_dir: PathLike[str] | str | None = None) -> None:
+    from itertools import chain
+    from pathlib import Path
     from subprocess import run
     from u_env import Env
 
     env = Env(env_dir)
     python = env.data.executable
+    build_dir = Path("target/wheels")
 
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
-    run(
-        [python, "-m", "twine", "check", "--strict", "target/wheels/*.*"],
-        check=True,
-    )
+
+    build_paths = list(chain(build_dir.glob("*.tar.gz"), build_dir.glob("*.whl")))
+    run([python, "-m", "twine", "check", "--strict"] + build_paths, check=True)
 
 
 if __name__ == "__main__":
