@@ -1,5 +1,5 @@
 """
-Construct an isolated environment
+Construct an isolated environment in Python
 
 ## Usage
 
@@ -15,7 +15,7 @@ from pathlib import Path
 
 class Env:
     """
-    Python environment builder
+    An isolated environment in Python
 
     ## Usage
     ```python
@@ -28,27 +28,40 @@ class Env:
     ```
 
     ## Note
-    It can only be used in a Python environment.
-
-    To use it in a shell script for development,
-    refer to the documentation here:
-    https://docs.python.org/3/library/venv.html#how-venvs-work
+    - The created environment will be cached for reuse.
+    - It can only be used in a Python environment.
+        To use it in a shell script, please refer to the documentation here:
+        https://docs.python.org/3/library/venv.html#how-venvs-work
     """
 
     _ENVIRONMENTS = {}
 
     def __init__(self, env_dir: PathLike[str] | str | None = None) -> None:
         """
-        Initialize an environment
+        Initialize an isolated environment
 
         ## Parameters
         - `env_dir` (`PathLike[str] | str | None` = `None`):
             - Path to the environment directory
 
+        ## Usage
+        ```python
+        # Construct an isolated environment in Python
+        env = Env()
+
+        # Access the environment data
+        print(env.data)
+        print(env.data.executable)
+        ```
+
         ## Note
-        The created environment will be cached for reuse.
+        - The created environment will be cached for reuse.
+        - It can only be used in a Python environment.
+            To use it in a shell script, please refer to the documentation here:
+            https://docs.python.org/3/library/venv.html#how-venvs-work
         """
 
+        # Only use built-in modules
         from os import environ, pathsep
         from shutil import SameFileError
         from site import addsitepackages
