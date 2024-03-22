@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 """
-Build the project
+Build the project (PyO3)
 
 ## Usage
 

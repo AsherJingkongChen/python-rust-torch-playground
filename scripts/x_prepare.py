@@ -24,9 +24,9 @@ def prepare(env_dir: PathLike[str] | str | None = None) -> None:
     from u_env import Env
 
     env = Env(env_dir)
-    pip = env.data.installer
+    python = env.data.executable
 
-    run([pip, "install", "-r", "requirements.txt"], check=True)
+    run([python, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
 
 
 if __name__ == "__main__":

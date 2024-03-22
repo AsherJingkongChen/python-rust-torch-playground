@@ -26,13 +26,13 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
     from x_build_pyo3 import get_build_paths
 
     env = Env(env_dir)
-    pip = env.data.installer
-    venv = env.data.directory
     python = env.data.executable
 
     run(
         [
-            pip,
+            python,
+            "-m",
+            "pip",
             "install",
             "--force-reinstall",
             "--no-deps",

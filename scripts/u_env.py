@@ -99,7 +99,6 @@ class Env:
         self._data = EnvData(
             directory=Path(env_path),
             executable=Path(exe_path),
-            installer=Path(bin_path).joinpath("pip"),
             path=Path(bin_path),
         )
 
@@ -150,16 +149,6 @@ class EnvData:
     ## Example
     ```python
     assert Env().data.executable.name.startswith("python")
-    ```
-    """
-
-    installer: Path
-    """
-    The path to the installer
-
-    ## Example
-    ```python
-    assert Env().data.installer.name == "pip"
     ```
     """
 

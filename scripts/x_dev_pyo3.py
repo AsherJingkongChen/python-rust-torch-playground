@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 
 """
-Development
+Development (PyO3)
 
 ## Usage
 
@@ -14,6 +14,9 @@ Development
 ```shell
 python3 scripts/x_dev.py
 ```
+
+## Note
+This script will open a Python interpreter.
 """
 
 from os import PathLike
