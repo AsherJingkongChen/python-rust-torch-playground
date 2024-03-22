@@ -33,7 +33,7 @@ fn tensor_mat_mul(a: PyTensor, b: PyTensor) -> PyResult<PyTensor> {
 
 /// A Python module implemented in Rust, using PyTorch
 /// 
-/// ## Details
+/// ## Notes
 /// The Rust library also dynamically links to the `PyTorch` library,
 /// which is written in C++ and provides Python API.
 /// 

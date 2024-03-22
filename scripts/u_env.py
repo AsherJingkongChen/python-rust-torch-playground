@@ -9,6 +9,7 @@ from u_env import Env
 """
 
 from dataclasses import dataclass
+from os import PathLike
 from pathlib import Path
 
 
@@ -34,10 +35,19 @@ class Env:
     https://docs.python.org/3/library/venv.html#how-venvs-work
     """
 
-    from os import PathLike
+    _ENVIRONMENTS = {}
 
     def __init__(self, path: PathLike[str] | str | None = None) -> None:
-        "Initialize an environment"
+        """
+        Initialize an environment
+
+        ## Parameters
+        - `path` (`str | PathLike[str] | None`):
+            - The path to the environment directory
+
+        ## Note
+        The created environment will be cached for reuse.
+        """
 
         from os import environ, pathsep
         from shutil import SameFileError
@@ -47,6 +57,11 @@ class Env:
 
         # Convert parameters
         path = Path(path or Env.DEFAULT_PATH()).absolute()
+
+        # Check if the environment already exists
+        if Env._ENVIRONMENTS.get(path):
+            self._data = Env._ENVIRONMENTS[path]._data
+            return
 
         # Initialize a virtual environment
         env = EnvBuilder(with_pip=True)
@@ -59,14 +74,6 @@ class Env:
         except SameFileError:
             # Skip creating process if the environment already exists
             pass
-
-        # Set data
-        self._data = EnvData(
-            directory=Path(env_path),
-            executable=Path(exe_path),
-            installer=Path(bin_path) / "pip",
-            path=Path(bin_path),
-        )
 
         # Update environment variables
         # - [how-venv-works](https://docs.python.org/3/library/venv.html#how-venvs-work)
@@ -82,6 +89,17 @@ class Env:
         # Update system path prefixes
         # - [sys.*prefix](https://docs.python.org/3/library/sys.html#sys.prefix)
         sys.exec_prefix = sys.prefix = env_path
+
+        # Set data
+        self._data = EnvData(
+            directory=Path(env_path),
+            executable=Path(exe_path),
+            installer=Path(bin_path) / "pip",
+            path=Path(bin_path),
+        )
+
+        # Record the environment
+        Env._ENVIRONMENTS[self._data.directory] = self
 
     def __repr__(self) -> str:
         return self._data.__repr__()
