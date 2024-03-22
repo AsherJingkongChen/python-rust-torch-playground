@@ -17,14 +17,17 @@ jobs:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        python:
-          - '3.10'
-        runner:
-          - macos-11
-          # - ubuntu-22.04
         include:
+          # Torch compilation fails on macOS x86_64
+          # - runner: macos-13
+          #   python: '3.10'
+          #   target: x86_64-apple-darwin
           - runner: macos-14
-            python: '3.11'
+            python: '3.11' # '3.10' is missing on macOS-ARM64
+            target: aarch64-apple-darwin
+          - runner: ubuntu-22.04
+            python: '3.10'
+            target: x86_64-unknown-linux-gnu
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
       - uses: actions/checkout@v4
@@ -36,6 +39,8 @@ jobs:
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
+        env:
+          CARGO_BUILD_TARGET: ${{ matrix.target }}
 
       - uses: actions/upload-artifact@v4
         with:
