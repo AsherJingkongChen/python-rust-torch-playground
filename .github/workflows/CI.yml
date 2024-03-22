@@ -13,15 +13,17 @@ permissions:
   contents: read
 
 jobs:
-  ci-macos:
+  ci-nix:
     runs-on: ${{ matrix.platform.runner }}
     strategy:
       matrix:
         platform:
-          - runner: macos-12
-            python: '3.10'
+          - runner: macos-latest
+            python: '3.12'
           # - runner: macos-14
           #   python: '3.11'
+          # - runner: ubuntu-20.04
+          #   python: '3.10'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
