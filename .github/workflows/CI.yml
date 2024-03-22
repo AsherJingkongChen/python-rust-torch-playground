@@ -20,7 +20,7 @@ jobs:
         include:
           # - runner: macos-14
           #   python: '3.11'
-          - runner: macos-10.15
+          - runner: macos-11
             python: '3.10'
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
