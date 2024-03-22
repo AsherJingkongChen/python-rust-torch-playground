@@ -14,24 +14,19 @@ permissions:
 
 jobs:
   ci-nix:
-    runs-on: ${{ matrix.platform.runner }}
+    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        platform:
-          - runner: macos-latest
-            python: '3.12'
-          # - runner: macos-14
-          #   python: '3.11'
-          # - runner: ubuntu-20.04
-          #   python: '3.10'
+        runner:
+          - macos-latest
+          - macos-14
+          # - ubuntu-22.04
     steps:
+      - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.platform.python }}
-
-      - name: Show runner
-        run: echo "Running on ${{ runner.os }}-${{ runner.arch }}!"
+          python-version: '3.10 - 3.11'
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
