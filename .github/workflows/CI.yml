@@ -17,16 +17,17 @@ jobs:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        runner:
-          - macos-latest
-          - macos-14
-          # - ubuntu-22.04
+        include:
+          # - runner: macos-14
+          #   python: '3.11'
+          - runner: macos-latest
+            python: '3.12'
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10 - 3.11'
+          python-version: ${{ matrix.python }}
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
