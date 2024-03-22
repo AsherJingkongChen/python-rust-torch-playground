@@ -19,26 +19,25 @@ python3 scripts/x_ci.py
 This script eases the process of continuous integration.
 """
 
+from os import PathLike
 
-def ci():
+
+def ci(env_dir: PathLike[str] | str | None = None) -> None:
     from x_build import build
     from x_clear import clear
     from x_format import format
     from x_prepare import prepare
     from x_test import test
 
-    clear()
-    prepare()
-    format()
-    build()
-    test()
-
-    # run([python, "scripts/x_clear.py"], check=True)
-    # run([python, "scripts/x_prepare.py"], check=True)
-    # run([python, "scripts/x_format.py"], check=True)
-    # run([python, "scripts/x_build.py"], check=True)
-    # run([python, "scripts/x_test.py"], check=True)
+    clear(env_dir)
+    prepare(env_dir)
+    format(env_dir)
+    build(env_dir)
+    test(env_dir)
 
 
 if __name__ == "__main__":
-    ci()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    ci(env_dir)

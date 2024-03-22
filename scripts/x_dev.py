@@ -16,16 +16,22 @@ python3 scripts/x_dev.py
 ```
 """
 
+from os import PathLike
 
-def dev():
+
+def dev(env_dir: PathLike[str] | str | None = None) -> None:
     from subprocess import run
     from u_env import Env
 
-    python = Env().data.executable
+    env = Env(env_dir)
+    python = env.data.executable
 
     run([python, "-m", "maturin", "develop", "--skip-install"], check=True)
     run([python], check=True)
 
 
 if __name__ == "__main__":
-    dev()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    dev(env_dir)

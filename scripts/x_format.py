@@ -17,14 +17,21 @@ python3 scripts/x_format.py
 """
 
 
-def format():
+from os import PathLike
+
+
+def format(env_dir: PathLike[str] | str | None = None) -> None:
     from subprocess import run
     from u_env import Env
 
-    python = Env().data.executable
+    env = Env(env_dir)
+    python = env.data.executable
 
     run([python, "-m", "black", "--line-length", "80", "."], check=True)
 
 
 if __name__ == "__main__":
-    format()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    format(env_dir)

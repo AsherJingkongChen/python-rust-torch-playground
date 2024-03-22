@@ -16,15 +16,17 @@ python3 scripts/x_test.py
 ```
 """
 
+from os import PathLike
 
-def test():
+
+def test(env_dir: PathLike[str] | str | None = None) -> None:
     from pathlib import Path
     from subprocess import run
     from u_env import Env
 
-    env = Env().data
-    pip = env.installer
-    python = env.executable
+    env = Env(env_dir)
+    pip = env.data.installer
+    python = env.data.executable
 
     run([pip, "install"] + list(Path("target/wheels").glob("*.*")), check=True)
     run(
@@ -43,4 +45,7 @@ def test():
 
 
 if __name__ == "__main__":
-    test()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    test(env_dir)

@@ -37,12 +37,12 @@ class Env:
 
     _ENVIRONMENTS = {}
 
-    def __init__(self, path: PathLike[str] | str | None = None) -> None:
+    def __init__(self, env_dir: PathLike[str] | str | None = None) -> None:
         """
         Initialize an environment
 
         ## Parameters
-        - `path` (`str | PathLike[str] | None`):
+        - `env_dir` (`PathLike[str] | str | None` = `None`):
             - The path to the environment directory
 
         ## Note
@@ -51,28 +51,33 @@ class Env:
 
         from os import environ, pathsep
         from shutil import SameFileError
-        import site
+        from site import addsitepackages
         import sys
         from venv import EnvBuilder
+        from colorama import just_fix_windows_console, Fore, Style
+
+        just_fix_windows_console()
 
         # Convert parameters
-        path = Path(path or Env.DEFAULT_PATH()).absolute()
+        env_dir = Env.resolve_dir(env_dir)
 
         # Check if the environment already exists
-        if Env._ENVIRONMENTS.get(path):
-            self._data = Env._ENVIRONMENTS[path]._data
+        old_env = Env._ENVIRONMENTS.get(env_dir)
+        if old_env:
+            self._data = old_env._data
             return
 
         # Initialize a virtual environment
         env = EnvBuilder(with_pip=True)
-        paths = env.ensure_directories(str(path))
+        paths = env.ensure_directories(str(env_dir))
         bin_path = str(paths.bin_path)
         env_path = str(paths.env_dir)
         exe_path = str(paths.env_exe)
         try:
             env.create(env_path)
         except SameFileError:
-            # Skip creating process if the environment already exists
+            # The error may occur if the environment already exists,
+            # just ignore it.
             pass
 
         # Update environment variables
@@ -83,8 +88,8 @@ class Env:
 
         # Update site package paths
         # - [site.addsitedir](https://docs.python.org/3/library/site.html#site.addsitedir)
-        for package_path in site.getsitepackages([env_path]):
-            site.addsitedir(package_path)
+        # - [site.getsitepackages](https://docs.python.org/3/library/site.html#site.getsitepackages)
+        addsitepackages(known_paths=None, prefixes=[env_path])
 
         # Update system path prefixes
         # - [sys.*prefix](https://docs.python.org/3/library/sys.html#sys.prefix)
@@ -94,15 +99,28 @@ class Env:
         self._data = EnvData(
             directory=Path(env_path),
             executable=Path(exe_path),
-            installer=Path(bin_path) / "pip",
+            installer=Path(bin_path).joinpath("pip"),
             path=Path(bin_path),
         )
 
         # Record the environment
         Env._ENVIRONMENTS[self._data.directory] = self
 
+        # Show post-init message
+        print(
+            Fore.CYAN
+            + f'A Python environment has initialized at "{self._data.directory}"'
+            + Style.RESET_ALL,
+            file=sys.stderr,
+        )
+
     def __repr__(self) -> str:
         return self._data.__repr__()
+
+    @staticmethod
+    def resolve_dir(env_dir: PathLike[str] | str | None) -> Path:
+        "Resolve the environment directory"
+        return Path(env_dir or Env.DEFAULT_PATH()).resolve()
 
     @staticmethod
     def DEFAULT_PATH() -> Path:

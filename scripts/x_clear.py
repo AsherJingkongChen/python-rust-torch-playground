@@ -16,12 +16,15 @@ python3 scripts/x_clear.py
 ```
 """
 
+from os import PathLike
 
-def clear():
+
+def clear(env_dir: PathLike[str] | str | None = None) -> None:
     from itertools import chain
     from pathlib import Path
     from shutil import rmtree
     from typing import Iterable
+    from u_env import Env
 
     def remove_paths(*paths: Iterable[Path]) -> None:
         for path in chain(*paths):
@@ -33,13 +36,17 @@ def clear():
                 path.unlink()
 
     cwd = Path.cwd()
+    env_dir = Env.resolve_dir(env_dir).relative_to(Path.cwd())
     remove_paths(
+        cwd.glob("target/"),
+        cwd.glob(".pytest_cache/"),
         cwd.glob("python/**/*.so"),
         cwd.glob("**/__pycache__"),
-        cwd.glob("target/"),
-        cwd.glob(".venv/"),
+        cwd.glob("{}".format(env_dir)),
     )
 
 
 if __name__ == "__main__":
-    clear()
+    from sys import argv
+
+    clear(argv[1] if len(argv) > 1 else None)

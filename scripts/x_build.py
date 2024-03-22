@@ -16,12 +16,15 @@ python3 scripts/x_build.py
 ```
 """
 
+from os import PathLike
 
-def build():
+
+def build(env_dir: PathLike[str] | str | None = None) -> None:
     from subprocess import run
     from u_env import Env
 
-    python = Env().data.executable
+    env = Env(env_dir)
+    python = env.data.executable
 
     run([python, "-m", "maturin", "build", "--strip", "--release"], check=True)
     run(
@@ -31,4 +34,7 @@ def build():
 
 
 if __name__ == "__main__":
-    build()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    build(env_dir)

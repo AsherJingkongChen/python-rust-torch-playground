@@ -16,15 +16,21 @@ python3 scripts/x_prepare.py
 ```
 """
 
+from os import PathLike
 
-def prepare():
+
+def prepare(env_dir: PathLike[str] | str | None = None) -> None:
     from subprocess import run
     from u_env import Env
 
-    pip = Env().data.installer
+    env = Env(env_dir)
+    pip = env.data.installer
 
     run([pip, "install", "-r", "requirements.txt"], check=True)
 
 
 if __name__ == "__main__":
-    prepare()
+    from sys import argv
+
+    env_dir = argv[1] if len(argv) > 1 else None
+    prepare(env_dir)
