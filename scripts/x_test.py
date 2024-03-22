@@ -30,7 +30,16 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
     venv = env.data.directory
     python = env.data.executable
 
-    run([pip, "install"] + get_build_paths(), check=True)
+    run(
+        [
+            pip,
+            "install",
+            "--force-reinstall",
+            "--no-deps",
+        ]
+        + get_build_paths(),
+        check=True,
+    )
     run(
         [
             python,
