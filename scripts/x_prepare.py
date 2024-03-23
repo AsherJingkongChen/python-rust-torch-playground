@@ -20,13 +20,13 @@ from os import PathLike
 
 
 def prepare(env_dir: PathLike[str] | str | None = None) -> None:
-    from subprocess import run
+    from subprocess import check_call
     from u_env import Env
 
     env = Env(env_dir)
     python = env.data.executable
 
-    run([python, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
+    check_call([python, "-m", "pip", "install", "-r", "requirements.txt"])
 
 
 if __name__ == "__main__":

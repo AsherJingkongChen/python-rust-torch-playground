@@ -36,13 +36,17 @@ class Env:
 
     _ENVIRONMENTS = {}
 
-    def __init__(self, env_dir: PathLike[str] | str | None = None) -> None:
+    def __init__(
+        self, env_dir: PathLike[str] | str | None = None, verbose: bool = True
+    ) -> None:
         """
         Initialize an isolated environment
 
         ## Parameters
         - `env_dir` (`PathLike[str] | str | None` = `None`):
             - Path to the environment directory
+        - `verbose` (`bool` = `True`):
+            - Whether to show the messages to `stderr`
 
         ## Usage
         ```python
@@ -116,10 +120,11 @@ class Env:
         Env._ENVIRONMENTS[self._data.directory] = self
 
         # Show post-init message
-        print(
-            f'A Python environment has initialized at "{self._data.directory}"',
-            file=sys.stderr,
-        )
+        if verbose:
+            print(
+                f'A Python environment has initialized at "{self._data.directory}"',
+                file=sys.stderr,
+            )
 
     def __repr__(self) -> str:
         return self._data.__repr__()

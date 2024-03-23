@@ -21,13 +21,13 @@ from os import PathLike
 
 
 def format(env_dir: PathLike[str] | str | None = None) -> None:
-    from subprocess import run
+    from subprocess import check_call
     from u_env import Env
 
     env = Env(env_dir)
     python = env.data.executable
 
-    run([python, "-m", "black", "--line-length", "80", "."], check=True)
+    check_call([python, "-m", "black", "--line-length", "80", "."])
 
 
 if __name__ == "__main__":

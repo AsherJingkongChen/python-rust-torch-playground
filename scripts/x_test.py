@@ -21,19 +21,18 @@ from pathlib import Path
 
 
 def test(env_dir: PathLike[str] | str | None = None) -> None:
-    from subprocess import run
+    from subprocess import check_call
     from u_env import Env
     from x_build_pyo3 import get_build_paths
 
     env = Env(env_dir)
     python = env.data.executable
 
-    run(
+    check_call(
         [python, "-m", "pip", "install", "--force-reinstall", "--no-deps"]
-        + get_build_paths(),
-        check=True,
+        + get_build_paths()
     )
-    run(
+    check_call(
         [
             python,
             "-m",
@@ -45,8 +44,7 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
             "--import-mode",
             "append",
         ]
-        + get_test_paths(),
-        check=True,
+        + get_test_paths()
     )
 
 

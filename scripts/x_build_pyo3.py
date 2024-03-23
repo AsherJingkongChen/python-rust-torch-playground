@@ -22,14 +22,14 @@ from pathlib import Path
 
 def build(env_dir: PathLike[str] | str | None = None) -> None:
     from pathlib import Path
-    from subprocess import run
+    from subprocess import check_call
     from u_env import Env
 
     env = Env(env_dir)
     python = env.data.executable
 
     list(map(Path.unlink, get_build_paths()))
-    run(
+    check_call(
         [
             python,
             "-m",
@@ -42,15 +42,9 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "--release",
             "--skip-auditwheel",
             "--strip",
-        ],
-        check=True,
-        close_fds=False,
+        ]
     )
-    run(
-        [python, "-m", "twine", "check", "--strict"] + get_build_paths(),
-        check=True,
-        close_fds=False,
-    )
+    check_call([python, "-m", "twine", "check", "--strict"] + get_build_paths())
 
 
 def get_build_paths() -> list[Path]:
