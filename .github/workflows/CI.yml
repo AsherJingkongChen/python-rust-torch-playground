@@ -22,7 +22,7 @@ jobs:
           #   python: '3.10'
           # - runner: macos-14
           #   python: '3.10'
-          - runner: ubuntu-20.04
+          - runner: ubuntu-22.04
             python: '3.10'
     steps:
       - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
