@@ -44,15 +44,18 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "--strip",
         ],
         check=True,
+        close_fds=False,
     )
     run(
         [python, "-m", "twine", "check", "--strict"] + get_build_paths(),
         check=True,
+        close_fds=False,
     )
 
 
 def get_build_paths() -> list[Path]:
     return list(Path("dist").glob("*.whl"))
+
 
 if __name__ == "__main__":
     from sys import argv
