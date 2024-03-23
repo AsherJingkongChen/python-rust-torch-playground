@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  ci-posix:
+  ci-github:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
@@ -25,12 +25,18 @@ jobs:
           - runner: ubuntu-22.04
             python: '3.10'
     steps:
-      - run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
+      - name: "Runner: ${{ runner }}"
+        run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
+
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
+
+      - name: Patch Dependencies for Linux
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libgomp1
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
@@ -43,8 +49,8 @@ jobs:
   # release:
   #   name: Release
   #   runs-on: ubuntu-latest
-  #   if:: "startsWith(github.ref, 'refs/tags/')"
-  #   needs: [macos]
+  #   iif: startsWith(github.ref, 'refs/tags/')
+  #   needs: [ci-github]
   #   steps:
   #     - uses: actions/download-artifact@v4
   #     - name: Publish to PyPI
