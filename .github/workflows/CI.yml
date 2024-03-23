@@ -30,7 +30,7 @@ jobs:
       - name: "Runner platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
 
-      - run: echo $LD_LIBRARY_PATH
+      - run: echo $PATH
       # - uses: actions/checkout@v4
       # - uses: actions/setup-python@v5
       #   with:
