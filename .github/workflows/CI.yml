@@ -24,8 +24,8 @@ jobs:
           #   runner: macos-14
           # - python: '3.10'
           #   runner: ubuntu-22.04
-          - python: "3.10"
-            runner: windows-latest
+          - python: "3.12"
+            runner: windows-2022
     steps:
       - name: "Platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
@@ -36,17 +36,8 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: "pip"
 
-      - name: "Prepare"
-        run: python scripts/x_prepare.py
-
-      - name: "Format"
-        run: python scripts/x_format.py
-
-      - name: "Build"
-        run: python scripts/x_build_pyo3.py
-
-      - name: "Test"
-        run: python scripts/x_test.py
+      - name: "Run custom CI script"
+        run: python scripts/x_ci.py
 
       - uses: actions/upload-artifact@v4
         with:
