@@ -18,7 +18,7 @@ dependencies = [
   "torch == 2.2.0",
 ]
 description = 'A playground for Python, Rust, and PyTorch'
-keywords = ['python', "rust", "pytorch", "demo"]
+keywords = ['python', "rust", "torch", "demo"]
 license = {file = "LICENSE"}
 name = "python-rust-torch-playground"
 readme = "README.md"
