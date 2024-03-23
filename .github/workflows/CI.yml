@@ -25,9 +25,9 @@ jobs:
           # - python: '3.10'
           #   runner: ubuntu-22.04
           - python: '3.10'
-            runner: windows-2022
+            runner: windows-latest
     steps:
-      - name: "Runner platform: ${{ runner.os }}-${{ runner.arch }}"
+      - name: "Platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
 
       - uses: actions/checkout@v4
@@ -39,18 +39,22 @@ jobs:
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
 
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: {{ runner.os }}-{{ runner.arch }}
-      #     path: dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact-${{ runner.os }}-${{ runner.arch }}
+          path: dist
 
-  # release:
+  # release-github:
   #   name: Release
   #   runs-on: ubuntu-latest
-  #   iif: startsWith(github.ref, 'refs/tags/')
+  #   _if: startsWith(github.ref, 'refs/tags/')
   #   needs: [ci-github]
   #   steps:
   #     - uses: actions/download-artifact@v4
+  #     - uses: softprops/action-gh-release@v2
+  #       with:
+  #         files: McHateBot_emerald.{{ github.ref_name }}.zip
+
   #     - name: Publish to PyPI
   #       uses: PyO3/maturin-action@v1
   #       env:
