@@ -24,7 +24,7 @@ jobs:
           #   runner: macos-14
           # - python: '3.10'
           #   runner: ubuntu-22.04
-          - python: '3.10'
+          - python: "3.10"
             runner: windows-latest
     steps:
       - name: "Platform: ${{ runner.os }}-${{ runner.arch }}"
@@ -34,15 +34,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-          cache: 'pip'
+          cache: "pip"
 
-      - name: Run Custom CI Scripts
-        run: |
-          python scripts/x_clear.py
-          python scripts/x_prepare.py
-          python scripts/x_format.py
-          python scripts/x_build.py
-          python scripts/x_test.py
+      - name: "Prepare"
+        run: python scripts/x_prepare.py
+
+      - name: "Format"
+        run: python scripts/x_format.py
+
+      - name: "Build"
+        run: python scripts/x_build_pyo3.py
+
+      - name: "Test"
+        run: python scripts/x_test.py
 
       - uses: actions/upload-artifact@v4
         with:
