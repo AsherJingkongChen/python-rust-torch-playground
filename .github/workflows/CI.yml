@@ -31,7 +31,6 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: 'pip'
-          cache-dependency-path: 'requirements.txt'
 
       - name: Run Custom CI Scripts
         run: python scripts/x_ci.py
