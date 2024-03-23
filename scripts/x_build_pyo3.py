@@ -35,12 +35,11 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "-m",
             "maturin",
             "build",
-            "--compatibility",
-            "linux",
-            "--release",
-            "--strip",
             "--out",
             "dist",
+            "--release",
+            "--skip-auditwheel",
+            "--strip",
         ],
         check=True,
     )
@@ -52,7 +51,6 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
 
 def get_build_paths() -> list[Path]:
     return list(Path("dist").glob("*.whl"))
-
 
 if __name__ == "__main__":
     from sys import argv
