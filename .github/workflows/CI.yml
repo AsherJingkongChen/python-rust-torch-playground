@@ -57,6 +57,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+          token: ${{ github.token }}
 
   # release-pypi:
   #   name: Release on PyPI
