@@ -41,7 +41,7 @@ jobs:
           python scripts/x_clear.py
           python scripts/x_prepare.py
           python scripts/x_format.py
-          python scripts/x_build.py
+          python scripts/x_build_pyo3.py
           python scripts/x_test.py
 
       - uses: actions/upload-artifact@v4
