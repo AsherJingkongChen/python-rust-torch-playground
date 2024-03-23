@@ -37,10 +37,10 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "build",
             "--release",
             "--strip",
-            "--zig",
             "--out",
             "dist",
-        ],
+        ]
+        + get_specific_build_options(),
         check=True,
     )
     run(
@@ -51,6 +51,17 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
 
 def get_build_paths() -> list[Path]:
     return list(Path("dist").glob("*.whl"))
+
+
+def get_specific_build_options() -> list[str]:
+    from platform import system
+
+    # - [platform.system](https://docs.python.org/3/library/platform.html#platform.system)
+    system_name = system()
+    if system_name == "Linux":
+        return ["--zig"]
+    else:
+        return []
 
 
 if __name__ == "__main__":
