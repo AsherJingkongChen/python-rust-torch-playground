@@ -13,19 +13,19 @@ permissions:
   contents: read
 
 jobs:
-  ci-github:
+  ci-posix:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         include:
-          # - python: '3.10'
+          # - python: "3.10"
           #   runner: macos-13 # PyTorch compilation fails on macOS x86_64
-          # - python: '3.10'
-          #   runner: macos-14
-          # - python: '3.10'
-          #   runner: ubuntu-22.04
-          - python: "3.12"
-            runner: windows-2022
+          - python: "3.10"
+            runner: macos-14
+          - python: "3.10"
+            runner: ubuntu-22.04
+          # - python: "3.10"
+          #   runner: windows-2022 # It doesn't work
     steps:
       - name: "Platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
@@ -44,16 +44,16 @@ jobs:
           name: artifact-${{ runner.os }}-${{ runner.arch }}
           path: dist
 
-  # release-github:
-  #   name: Release
-  #   runs-on: ubuntu-latest
-  #   _if: startsWith(github.ref, 'refs/tags/')
-  #   needs: [ci-github]
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #     - uses: softprops/action-gh-release@v2
-  #       with:
-  #         files: McHateBot_emerald.{{ github.ref_name }}.zip
+  release-github:
+    name: Release
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [ci-posix]
+    steps:
+      - uses: actions/download-artifact@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: artifact-${{ runner.os }}-${{ runner.arch }}.zip
 
   #     - name: Publish to PyPI
   #       uses: PyO3/maturin-action@v1
