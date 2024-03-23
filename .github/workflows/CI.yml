@@ -24,22 +24,27 @@ jobs:
           #   python: '3.10'
           - runner: ubuntu-22.04
             python: '3.10'
+          # - runner: windows-2022
+          #   python: '3.10'
     steps:
       - name: "Runner platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
 
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python }}
-          cache: 'pip'
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: ${{ matrix.python }}
+      #     cache: 'pip'
 
       - name: Patch Dependencies for Linux
         if: runner.os == 'Linux'
         run: sudo apt-get install -y libgomp1
+      
+      - name: Find libgomp
+        run: find / -name "libgomp*"
 
-      - name: Run Custom CI Scripts
-        run: python scripts/x_ci.py
+      # - name: Run Custom CI Scripts
+      #   run: python scripts/x_ci.py
 
       # - uses: actions/upload-artifact@v4
       #   with:
