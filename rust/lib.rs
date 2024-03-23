@@ -1,3 +1,5 @@
+extern crate openmp_sys;
+
 use pyo3::prelude::*;
 use pyo3_tch::{tch::Tensor, PyTensor};
 
