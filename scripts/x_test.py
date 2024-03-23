@@ -41,7 +41,7 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
             "--capture",
             "no",
             "--ignore",
-            "site-packages",
+            "*-packages",
             "--import-mode",
             "append",
         ]
