@@ -36,20 +36,8 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: "pip"
 
-      - name: "Custom CI: Clear"
-        run: python scripts/x_clear.py
-
-      - name: "Custom CI: Prepare"
-        run: python scripts/x_prepare.py
-
-      - name: "Custom CI: Format"
-        run: python scripts/x_format.py
-
-      - name: "Custom CI: Build (PyO3)"
-        run: python scripts/x_build_pyo3.py
-
-      - name: "Custom CI: Test"
-        run: python scripts/x_test.py
+      - name: "Run Custom CI Scripts"
+        run: python scripts/x_ci.py
 
       - uses: actions/upload-artifact@v4
         with:
