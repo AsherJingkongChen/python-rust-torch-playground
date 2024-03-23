@@ -25,7 +25,7 @@ jobs:
           - runner: ubuntu-22.04
             python: '3.10'
     steps:
-      - name: "Runner: ${{ runner }}"
+      - name: "Runner platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"
 
       - uses: actions/checkout@v4
