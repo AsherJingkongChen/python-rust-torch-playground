@@ -28,6 +28,7 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
     env = Env(env_dir)
     python = env.data.executable
 
+    check_call([python, "-m", "twine", "check", "--strict"] + get_build_paths())
     check_call(
         [python, "-m", "pip", "install", "--force-reinstall", "--no-deps"]
         + get_build_paths()

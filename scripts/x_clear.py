@@ -16,24 +16,14 @@ python3 scripts/x_clear.py
 ```
 """
 
+
 from os import PathLike
+from pathlib import Path
+from typing import Iterable
 
 
 def clear(env_dir: PathLike[str] | str | None = None) -> None:
-    from itertools import chain
-    from pathlib import Path
-    from shutil import rmtree
-    from typing import Iterable
     from u_env import Env
-
-    def remove_paths(*paths: Iterable[Path]) -> None:
-        for path in chain(*paths):
-            if not path.exists():
-                continue
-            if path.is_dir():
-                rmtree(path)
-            else:
-                path.unlink()
 
     cwd = Path.cwd()
     env_dir = Env.resolve_dir(env_dir).relative_to(cwd)
@@ -45,6 +35,19 @@ def clear(env_dir: PathLike[str] | str | None = None) -> None:
         cwd.glob("target/"),
         cwd.glob("python/**/*.so"),
     )
+
+
+def remove_paths(*paths: Iterable[Path]) -> None:
+    from itertools import chain
+    from shutil import rmtree
+
+    for path in chain(*paths):
+        if not path.exists():
+            continue
+        if path.is_dir():
+            rmtree(path)
+        else:
+            path.unlink()
 
 
 if __name__ == "__main__":

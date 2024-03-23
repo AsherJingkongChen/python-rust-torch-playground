@@ -22,14 +22,15 @@ from pathlib import Path
 
 def build(env_dir: PathLike[str] | str | None = None) -> None:
     from pathlib import Path
-    from subprocess import Popen
+    from subprocess import check_call
     from u_env import Env
+    from x_clear import remove_paths
 
     env = Env(env_dir)
     python = env.data.executable
 
-    list(map(Path.unlink, get_build_paths()))
-    Popen(
+    remove_paths(get_build_paths())
+    check_call(
         [
             python,
             "-m",
@@ -43,10 +44,7 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "--skip-auditwheel",
             "--strip",
         ]
-    ).communicate()
-    Popen(
-        [python, "-m", "twine", "check", "--strict"] + get_build_paths()
-    ).communicate()
+    )
 
 
 def get_build_paths() -> list[Path]:
