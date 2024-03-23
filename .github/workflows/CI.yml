@@ -37,6 +37,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: "pip"
+          cache-dependency-path: ".venv/pyvenv.cfg"
 
       - name: "Run Custom CI Scripts"
         run: python scripts/x_ci.py
