@@ -41,7 +41,7 @@ jobs:
           cache: "pip"
 
       - name: "Run Custom CI Scripts"
-        run: python${{ matrix.python }} scripts/x_ci.py
+        run: python scripts/x_ci.py
 
       - uses: actions/upload-artifact@v4
         with:
