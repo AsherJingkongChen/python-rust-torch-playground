@@ -42,11 +42,18 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "--skip-auditwheel",
             "--strip",
         ]
+        + get_specific_build_options()
     )
 
 
 def get_build_paths() -> list[Path]:
     return list(Path("dist").glob("*.whl"))
+
+
+def get_specific_build_options() -> list[str]:
+    from platform import system
+
+    return ["--zig"] if system() == "Linux" else []
 
 
 if __name__ == "__main__":

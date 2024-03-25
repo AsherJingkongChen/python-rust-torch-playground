@@ -8,3 +8,4 @@ twine >= 5.0.0
 # Build tools for PyO3
 maturin >= 1.5.0, < 2.0.0
 maturin[patchelf] ; platform_system=="Linux"
+maturin[zig] ; platform_system=="Linux"
