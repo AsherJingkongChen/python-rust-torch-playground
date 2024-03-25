@@ -9,5 +9,6 @@ name = "python_rust_torch_playground"
 path = "rust/lib.rs"
 
 [dependencies]
+openmp-sys = "1.2.3"
 pyo3 = {version = "0.18.3", features = ["extension-module", "generate-import-lib"]}
 pyo3-tch = "0.15.0"
