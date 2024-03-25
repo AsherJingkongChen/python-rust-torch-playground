@@ -83,8 +83,7 @@ class Env:
 
         # Initialize a virtual environment
         env = EnvBuilder(
-            # upgrade=True,
-            # upgrade_deps=True,
+            upgrade_deps=True,
             with_pip=True,
         )
         paths = env.ensure_directories(str(env_dir))
