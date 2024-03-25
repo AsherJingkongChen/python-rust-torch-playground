@@ -26,7 +26,9 @@ def prepare(env_dir: PathLike[str] | str | None = None) -> None:
     env = Env(env_dir)
     python = env.data.executable
 
-    check_call([python, "-m", "pip", "install", "--upgrade", "-r", "requirements.txt"])
+    check_call(
+        [python, "-m", "pip", "install", "--upgrade", "-r", "requirements.txt"]
+    )
 
 
 if __name__ == "__main__":
