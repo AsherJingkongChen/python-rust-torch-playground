@@ -38,12 +38,9 @@ def test(env_dir: PathLike[str] | str | None = None) -> None:
             python,
             "-m",
             "pytest",
-            "--capture",
-            "no",
-            "--ignore",
-            "*-packages",
-            "--import-mode",
-            "append",
+            "--capture=no",
+            "--ignore=*-packages",
+            "--import-mode=append",
         ]
         + get_test_paths()
     )

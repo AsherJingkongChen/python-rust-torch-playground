@@ -21,7 +21,6 @@ from pathlib import Path
 
 
 def build(env_dir: PathLike[str] | str | None = None) -> None:
-    from pathlib import Path
     from subprocess import check_call
     from u_env import Env
     from x_clear import remove_paths
@@ -36,26 +35,18 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "-m",
             "maturin",
             "build",
-            # "--compatibility",
-            # "manylinux2014",
-            "--out",
-            "dist",
+            "--compatibility=manylinux2014",
+            "--future-incompat-report",
+            "--out=dist",
             "--release",
-            # "--skip-auditwheel",
+            "--skip-auditwheel",
             "--strip",
         ]
-        # + get_build_specfic_options(),
     )
 
 
 def get_build_paths() -> list[Path]:
     return list(Path("dist").glob("*.whl"))
-
-
-# def get_build_specfic_options() -> list[str]:
-#     from platform import system
-
-#     return ["--zig"] if system() == "Linux" else []
 
 
 if __name__ == "__main__":
