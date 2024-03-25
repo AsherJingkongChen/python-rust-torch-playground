@@ -35,15 +35,12 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "-m",
             "maturin",
             "build",
-            "--color=never",
             "--compatibility=manylinux2014",
             "--future-incompat-report",
-            "--jobs=1",
             "--out=dist",
             "--release",
             "--skip-auditwheel",
             "--strip",
-            "-vv",
         ]
     )
 
