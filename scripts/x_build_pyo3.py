@@ -43,7 +43,6 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
             "--release",
             # "--skip-auditwheel",
             "--strip",
-            "--zig",
         ]
         + get_build_specfic_options(),
     )
