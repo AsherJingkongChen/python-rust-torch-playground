@@ -82,7 +82,11 @@ class Env:
             return
 
         # Initialize a virtual environment
-        env = EnvBuilder(with_pip=True)
+        env = EnvBuilder(
+            upgrade=True,
+            upgrade_deps=True,
+            with_pip=True,
+        )
         paths = env.ensure_directories(str(env_dir))
         bin_path = str(paths.bin_path)
         env_path = str(paths.env_dir)

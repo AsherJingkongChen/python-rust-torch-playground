@@ -23,8 +23,10 @@ jobs:
           #   runner: macos-13 # macOS-X64
           # - python: "3.10"
           #   runner: "macos-14" # macOS-ARM64
-          - python: "3.10"
-            runner: "ubuntu-22.04" # Linux-X64
+          - python: "3.12"
+            runner: "macos-14" # macOS-ARM64
+          # - python: "3.10"
+          #   runner: "ubuntu-22.04" # Linux-X64
           # TODO: It stops compiling with Rust on Windows and fails
           # - python: "3.10"
           #   runner: "windows-2022" # Windows-X64
