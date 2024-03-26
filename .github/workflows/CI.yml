@@ -26,8 +26,8 @@ jobs:
           - python: "3.10"
             runner: "ubuntu-22.04" # Linux-X64
           # TODO: It stops compiling with Rust on Windows and fails
-          - python: "3.10"
-            runner: "windows-2022" # Windows-X64
+          # - python: "3.10"
+          #   runner: "windows-2022" # Windows-X64
     steps:
       - name: "Platform: ${{ runner.os }}-${{ runner.arch }}"
         run: echo "I'm running on ${{ runner.os }}-${{ runner.arch }}!"

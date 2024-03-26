@@ -31,7 +31,7 @@ def ci(env_dir: PathLike[str] | str | None = None) -> None:
 
     clear(env_dir)
     prepare(env_dir)
-    # format(env_dir)
+    format(env_dir)
     build(env_dir)
     test(env_dir)
 
