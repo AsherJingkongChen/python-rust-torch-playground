@@ -23,25 +23,12 @@ from pathlib import Path
 def test(env_dir: PathLike[str] | str | None = None) -> None:
     from subprocess import check_call
     from u_env import Env
-    from x_build_pyo3 import get_build_paths
 
     env = Env(env_dir)
     python = env.data.executable
 
-    check_call([python, "-m", "twine", "check", "--strict"] + get_build_paths())
     check_call(
-        [python, "-m", "pip", "install", "--force-reinstall", "--no-deps"]
-        + get_build_paths()
-    )
-    check_call(
-        [
-            python,
-            "-m",
-            "pytest",
-            "--capture=no",
-            "--ignore=*-packages",
-            "--import-mode=append",
-        ]
+        f"{python} -m pytest --capture=no --ignore=*-packages --import-mode=append".split()
         + get_test_paths()
     )
 

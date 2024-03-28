@@ -30,6 +30,7 @@ def clear(env_dir: PathLike[str] | str | None = None) -> None:
     remove_paths(
         cwd.glob("{}".format(env_dir)),
         cwd.glob("**/__pycache__"),
+        cwd.glob("*.egg-info"),
         cwd.glob(".pytest_cache/"),
         cwd.glob("dist/"),
         cwd.glob("target/"),

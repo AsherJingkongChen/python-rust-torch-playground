@@ -7,12 +7,12 @@ Development (PyO3)
 
 1.
 ```shell
-./scripts/x_dev.py
+./scripts/x_dev_pyo3.py
 ```
 
 2.
 ```shell
-python3 scripts/x_dev.py
+python3 scripts/x_dev_pyo3.py
 ```
 
 ## Note

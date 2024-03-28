@@ -7,12 +7,12 @@ Build the project (PyO3)
 
 1.
 ```shell
-./scripts/x_build.py
+./scripts/x_build_pyo3.py
 ```
 
 2.
 ```shell
-python3 scripts/x_build.py
+python3 scripts/x_build_pyo3.py
 ```
 """
 
@@ -30,23 +30,22 @@ def build(env_dir: PathLike[str] | str | None = None) -> None:
 
     remove_paths(get_build_paths())
     check_call(
-        [
-            python,
-            "-m",
-            "maturin",
-            "build",
-            "--compatibility=manylinux2014",
-            "--future-incompat-report",
-            "--out=dist",
-            "--release",
-            "--skip-auditwheel",
-            "--strip",
-        ]
+        f"{python} -m maturin build --compatibility=manylinux2014 --future-incompat-report --out=dist --release --skip-auditwheel --strip".split()
+    )
+    remove_paths(get_build_temp_paths())
+    check_call(f"{python} -m twine check --strict".split() + get_build_paths())
+    check_call(
+        f"{python} -m pip install --force-reinstall --no-deps".split()
+        + get_build_paths()
     )
 
 
 def get_build_paths() -> list[Path]:
-    return list(Path("dist").glob("*.whl"))
+    return list(Path("dist").glob("*"))
+
+
+def get_build_temp_paths() -> list[Path]:
+    return list(Path().glob("build"))
 
 
 if __name__ == "__main__":

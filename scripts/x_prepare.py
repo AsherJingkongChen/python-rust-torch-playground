@@ -27,14 +27,7 @@ def prepare(env_dir: PathLike[str] | str | None = None) -> None:
     python = env.data.executable
 
     check_call(
-        [
-            python,
-            "-m",
-            "pip",
-            "install",
-            "--requirement=requirements.txt",
-            "--upgrade",
-        ]
+        f"{python} -m pip install --requirement=requirements.txt --upgrade".split()
     )
 
 
